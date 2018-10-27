@@ -17,64 +17,64 @@ namespace TaviscaDataAnalyzerTool.Controllers
         }
 
         [HttpGet("HotelLocations")]
-        public object GetAllLocations()
+        public IActionResult GetAllLocations()
         {            
-            return service.GetAllLocationsService();
+            return Ok(service.GetAllLocationsService());
         }
 
         [HttpGet("HotelLocationWithDates")]
 
-        public object GetHotelLocationWithDates([FromQuery] string fromDate, string toDate)
+        public IActionResult GetHotelLocationWithDates([FromQuery] string fromDate, string toDate)
         {
             UIRequest query = new UIRequest { ToDate = toDate, FromDate = fromDate };                       
-            return service.HotelsAtALocationWithDatesService(query);
+            return Ok(service.HotelsAtALocationWithDatesService(query));
         }
 
         [HttpGet("HotelNamesWithDates")]
 
-        public object GetHotelNamesWithDates([FromQuery] string fromDate, string toDate, string location)
+        public IActionResult GetHotelNamesWithDates([FromQuery] string fromDate, string toDate, string location)
         {
             UIRequest query = new UIRequest { ToDate = toDate, FromDate = fromDate, Filter = location };           
-            return service.HotelNameWithDatesService(query);
+            return Ok(service.HotelNameWithDatesService(query));
         }
 
         [HttpGet("SupplierNamesWithDates")]
 
-        public object GetSupplierNamesWithDates([FromQuery] string fromDate, string toDate, string location)
+        public IActionResult GetSupplierNamesWithDates([FromQuery] string fromDate, string toDate, string location)
         {
             UIRequest query = new UIRequest { ToDate = toDate, FromDate = fromDate, Filter = location };            
-            return service.SupplierNamesWithDatesService(query);
+            return Ok(service.SupplierNamesWithDatesService(query));
         }
 
         [HttpGet("FailureCount")]
 
-        public object GetFailureCount([FromQuery] string fromDate, string toDate, string location)
+        public IActionResult GetFailureCount([FromQuery] string fromDate, string toDate, string location)
         {
             UIRequest query = new UIRequest { ToDate = toDate, FromDate = fromDate, Filter = location };            
-            return service.FailureCountService(query);
+            return Ok(service.FailureCountService(query));
         }
 
         [HttpGet("PaymentType")]
         
-        public object GetPaymentType([FromQuery] string fromDate, string toDate, string location)
+        public IActionResult GetPaymentType([FromQuery] string fromDate, string toDate, string location)
         {
             UIRequest query = new UIRequest { ToDate = toDate, FromDate = fromDate, Filter = location };
-            return service.PaymentDetailsService(query);
+            return Ok(service.PaymentDetailsService(query));
         }
 
         [HttpGet("BookingDates")]
 
-        public object GetBookingDates([FromQuery] string fromDate, string toDate, string location)
+        public IActionResult GetBookingDates([FromQuery] string fromDate, string toDate, string location)
         {
             UIRequest query = new UIRequest { ToDate = toDate, FromDate = fromDate, Filter = location };            
-            return service.BookingDatesService(query);
+            return Ok(service.BookingDatesService(query));
         }
 
         [HttpGet("TotalBookings")]
 
-        public object GetSuccessfulCount()
+        public IActionResult GetSuccessfulCount()
         {           
-            return service.TotalHotelBookingsService();
+            return Ok(service.TotalHotelBookingsService());
         }
     }
 }

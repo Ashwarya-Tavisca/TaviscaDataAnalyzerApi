@@ -17,59 +17,53 @@ namespace TaviscaDataAnalyzerTool.Controllers.Air
         {
             webApiServiceProvider = _webApiServiceProvider;
         }
-        [HttpGet("PaymentType")]
 
-        public object GetPaymentType([FromQuery]string fromDate, string toDate)
+        [HttpGet("PaymentType")]
+        public IActionResult GetPaymentType([FromQuery]string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.AirPaymentTypeService(uiRequest);
+            return Ok(webApiServiceProvider.AirPaymentTypeService(uiRequest));
         }
 
         [HttpGet("MarketingAirlineBookingInfo")]
-
-        public object GetMarketingAirlineBookingInfo([FromQuery] string fromDate, string toDate)
+        public IActionResult GetMarketingAirlineBookingInfo([FromQuery] string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.MarketingAirlineBookingsInfoService(uiRequest);
+            return Ok(webApiServiceProvider.MarketingAirlineBookingsInfoService(uiRequest));
         }
 
         [HttpGet("FailureCount")]
-
-        public object GetFailureCountInfo([FromQuery] string fromDate, string toDate)
+        public IActionResult GetFailureCountInfo([FromQuery] string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.FailureCountInfoService(uiRequest);
+            return Ok(webApiServiceProvider.FailureCountInfoService(uiRequest));
         }
 
         [HttpGet("TotalBookings")]
-
-        public object GetTotalBookingsInfo()
+        public IActionResult GetTotalBookingsInfo()
         {
-            return webApiServiceProvider.TotalBookingsInfoService();
+            return Ok(webApiServiceProvider.TotalBookingsInfoService());
         }
 
 
         [HttpGet("BookingsWithinDateRange")]
-
-        public object GetBookingsWithinDateRangeInfo([FromQuery] string fromDate, string toDate)
+        public IActionResult GetBookingsWithinDateRangeInfo([FromQuery] string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.BookingsWithinDateRangeInfoService(uiRequest);
+            return Ok(webApiServiceProvider.BookingsWithinDateRangeInfoService(uiRequest));
         }
 
         [HttpGet("BookingsForSpecificTrip")]
-
-        public object GetBookingsForSpecificTrip([FromQuery] string fromDate, string toDate, string departAirportCode, string arrivalAirportCode)
+        public IActionResult GetBookingsForSpecificTrip([FromQuery] string fromDate, string toDate, string departAirportCode, string arrivalAirportCode)
         {
             TripBookingRequest uiRequest = new TripBookingRequest { FromDate = fromDate, ToDate = toDate, ArrivalAirportCode = arrivalAirportCode, DepartAirportCode = departAirportCode };
-            return webApiServiceProvider.BookingsForSpecificTripService(uiRequest);
+            return Ok(webApiServiceProvider.BookingsForSpecificTripService(uiRequest));
         }
 
         [HttpGet("ListOfAirportsWithCode")]
-
-        public object GetListOfAirportsWithCode()
+        public IActionResult GetListOfAirportsWithCode()
         {
-            return webApiServiceProvider.ListOfAirportsWithCodeService();
+            return Ok(webApiServiceProvider.ListOfAirportsWithCodeService());
         }
     }
 }
