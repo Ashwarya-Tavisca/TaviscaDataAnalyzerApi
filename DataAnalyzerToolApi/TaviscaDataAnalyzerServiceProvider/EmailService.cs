@@ -34,12 +34,9 @@ namespace TaviscaDataAnalyzerServiceProvider
                 }
                 reportBody += "</table>" + "<br>";
             }
-
-
             StringReader sr = new StringReader(reportBody);
             Document pdfDoc = new Document(PageSize.A4, 50f, 10f, 20f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
@@ -48,23 +45,19 @@ namespace TaviscaDataAnalyzerServiceProvider
                 pdfDoc.Close();
                 byte[] bytes = memoryStream.ToArray();
                 memoryStream.Close();
-
                 MailMessage mailMessage = new MailMessage("purab2018@gmail.com", details.RecipientEmialId);
                 mailMessage.Subject = "Data Analysis Report";
                 mailMessage.Body = "Your analysis report is attached with this Email !";
                 mailMessage.IsBodyHtml = true;
                 mailMessage.Attachments.Add(new Attachment(new MemoryStream(bytes), "DataAnalysisReport.pdf"));
-
                 NetworkCredential credentials = new NetworkCredential();
                 credentials.UserName = "purab2018@gmail.com";
-                credentials.Password = "Tavisca@123";
-
+                credentials.Password = "Tavisca@123";               
                 SmtpClient client = new SmtpClient();
                 client.Host = "smtp.gmail.com";
                 client.Credentials = credentials;
                 client.Port = 587;
                 client.EnableSsl = true;
-
                 try
                 {
                     client.Send(mailMessage);

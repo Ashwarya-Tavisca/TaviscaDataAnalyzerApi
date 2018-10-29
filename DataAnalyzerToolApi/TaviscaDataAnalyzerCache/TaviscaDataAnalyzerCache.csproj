@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreContracts\CoreContracts.csproj" />
+    <ProjectReference Include="..\TaviscaDataAnalyzerDatabase\TaviscaDataAnalyzerDatabase.csproj" />
   </ItemGroup>
 
 </Project>
