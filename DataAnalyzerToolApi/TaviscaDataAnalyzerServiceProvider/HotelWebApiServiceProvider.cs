@@ -3,6 +3,7 @@ using CoreContracts.Models.Hotels;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using TaviscaDataAnalyzerCache;
 using TaviscaDataAnalyzerDatabase;
 using TaviscaDataAnalyzerTranslator.HotelsTranslator;
@@ -20,15 +21,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             _sqlDatabase = sqlDatabase;
             _hotelTranslator = hotelTranslator;
         }
-        public List<HotelBookingDates> BookingDatesService(UIRequest query)
+        public async Task<List<HotelBookingDates>> BookingDatesService(UIRequest query)
         {
             string result = null;
             string data = "BookingDates" + query.Filter + query.FromDate + query.ToDate;
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.BookingDatesDatabase(query);
+                DataTable dataTable = await _sqlDatabase.BookingDatesDatabase(query);
                 result = _hotelTranslator.BookingDatesTranslator(dataTable);
                 _cache.Add(data, result);
             }
@@ -36,15 +36,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             return hotelBookingDates;
         }
 
-        public FailuresInBooking FailureCountService(UIRequest query)
+        public async Task<FailuresInBooking> FailureCountService(UIRequest query)
         {
             string result = null;
             string data = "FailureCount";
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.FailureCountDataBase(query);
+                DataTable dataTable = await  _sqlDatabase.FailureCountDataBase(query);
                 result = _hotelTranslator.FailureCountTranslator(dataTable);
                 _cache.Add(data, result);
             }
@@ -52,15 +51,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             return FailureCount;
         }
 
-        public Cities GetAllLocationsService()
+        public async Task<Cities> GetAllLocationsService()
         {
             string result = null;
             string data = "AllLocations";
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.GetAllLocationsDatabase();
+                DataTable dataTable = await _sqlDatabase.GetAllLocationsDatabase();
                 result = _hotelTranslator.GetAllLocationsTranslator(dataTable);
                 _cache.Add(data, result);
             }
@@ -68,15 +66,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             return ListOfCities;
         }
 
-        public List<HotelNamesWithBookings> HotelNameWithDatesService(UIRequest query)
+        public async Task<List<HotelNamesWithBookings>> HotelNameWithDatesService(UIRequest query)
         {
             string result = null;
             string data = query.ToDate + query.Filter + query.FromDate;
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.HotelNameWithDatesDatabases(query);
+                DataTable dataTable = await _sqlDatabase.HotelNameWithDatesDatabases(query);
                 result = _hotelTranslator.HotelNameWithDatesTranslator(dataTable);
                 _cache.Add(data, result);
             }
@@ -84,15 +81,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             return ListOfHotelNamesWithDates;
         }
 
-        public List<HotelsInALocationWithDates> HotelsAtALocationWithDatesService(UIRequest query)
+        public async Task<List<HotelsInALocationWithDates>> HotelsAtALocationWithDatesService(UIRequest query)
         {
             string result = null;
             string data = query.ToDate + query.FromDate;
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.HotelsAtALocationWithDatesDatabases(query);
+                DataTable dataTable = await _sqlDatabase.HotelsAtALocationWithDatesDatabases(query);
                 result = _hotelTranslator.HotelsAtALocationWithDatesTranslator(dataTable);
                 _cache.Add(data, result);
             }
@@ -100,15 +96,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             return ListOfHotelsWithDates;
         }
 
-        public List<PaymentDetails> PaymentDetailsService(UIRequest query)
+        public async Task<List<PaymentDetails>> PaymentDetailsService(UIRequest query)
         {
             string result = null;
             string data = query.ToDate + query.FromDate + "Payment" + query.Filter;
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.PaymentDetailsDatabase(query);
+                DataTable dataTable = await _sqlDatabase.PaymentDetailsDatabase(query);
                 result = _hotelTranslator.PaymentDetailsTranslator(dataTable);
                 _cache.Add(data, result);
             }
@@ -116,15 +111,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             return payment;
         }
 
-        public List<IndividualSupplierBookings> SupplierNamesWithDatesService(UIRequest query)
+        public async Task<List<IndividualSupplierBookings>> SupplierNamesWithDatesService(UIRequest query)
         {
             string result = null;
             string data = query.ToDate + query.FromDate + query.Filter;
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.SupplierNamesWithDatesDatabase(query);
+                DataTable dataTable = await _sqlDatabase.SupplierNamesWithDatesDatabase(query);
                 result = _hotelTranslator.SupplierNamesWithDatesTranslator(dataTable);
                 _cache.Add(data, result);
             }
@@ -132,15 +126,14 @@ namespace TaviscaDataAnalyzerServiceProvider
             return ListOfSuppliers;
         }
 
-        public List<TotalHotelBookings> TotalHotelBookingsService()
+        public async Task<List<TotalHotelBookings>> TotalHotelBookingsService()
         {
             string result = null;
             string data = "TotalHotelBookings";
             result = _cache.Get(data);
             if (result == null)
             {
-
-                DataTable dataTable = _sqlDatabase.TotalHotelBookingsDataBase();
+                DataTable dataTable = await _sqlDatabase.TotalHotelBookingsDataBase();
                 result = _hotelTranslator.TotalHotelBookingsTranslator(dataTable);
                 _cache.Add(data, result);
             }

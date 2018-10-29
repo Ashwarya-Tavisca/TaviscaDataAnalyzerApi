@@ -1,6 +1,7 @@
 ﻿using CoreContracts.Models;
 using CoreContracts.Models.Air;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using TaviscaDataAnalyzerServiceProvider;
 
 
@@ -11,65 +12,50 @@ namespace TaviscaDataAnalyzerTool.Controllers.Air
     [Route("api/Air/")]
     public class AirController : Controller
     {
-
         IAirWebApiService webApiServiceProvider;
         public AirController(IAirWebApiService _webApiServiceProvider)
         {
             webApiServiceProvider = _webApiServiceProvider;
         }
         [HttpGet("PaymentType")]
-
-        public object GetPaymentType([FromQuery]string fromDate, string toDate)
+        public async Task<IActionResult> GetPaymentType([FromQuery]string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.AirPaymentTypeService(uiRequest);
+            return  Ok(await webApiServiceProvider.AirPaymentTypeService(uiRequest));
         }
-
         [HttpGet("MarketingAirlineBookingInfo")]
-
-        public object GetMarketingAirlineBookingInfo([FromQuery] string fromDate, string toDate)
+        public async Task<IActionResult> GetMarketingAirlineBookingInfo([FromQuery] string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.MarketingAirlineBookingsInfoService(uiRequest);
+            return Ok(await webApiServiceProvider.MarketingAirlineBookingsInfoService(uiRequest));
         }
-
         [HttpGet("FailureCount")]
-
-        public object GetFailureCountInfo([FromQuery] string fromDate, string toDate)
+        public async Task<IActionResult> GetFailureCountInfo([FromQuery] string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.FailureCountInfoService(uiRequest);
+            return Ok(await webApiServiceProvider.FailureCountInfoService(uiRequest));
         }
-
         [HttpGet("TotalBookings")]
-
-        public object GetTotalBookingsInfo()
+        public async Task<IActionResult> GetTotalBookingsInfo()
         {
-            return webApiServiceProvider.TotalBookingsInfoService();
+            return Ok(await webApiServiceProvider.TotalBookingsInfoService());
         }
-
-
         [HttpGet("BookingsWithinDateRange")]
-
-        public object GetBookingsWithinDateRangeInfo([FromQuery] string fromDate, string toDate)
+        public async Task<IActionResult> GetBookingsWithinDateRangeInfo([FromQuery] string fromDate, string toDate)
         {
             UIRequest uiRequest = new UIRequest { FromDate = fromDate, ToDate = toDate };
-            return webApiServiceProvider.BookingsWithinDateRangeInfoService(uiRequest);
+            return Ok(await webApiServiceProvider.BookingsWithinDateRangeInfoService(uiRequest));
         }
-
         [HttpGet("BookingsForSpecificTrip")]
-
-        public object GetBookingsForSpecificTrip([FromQuery] string fromDate, string toDate, string departAirportCode, string arrivalAirportCode)
+        public async Task<IActionResult> GetBookingsForSpecificTrip([FromQuery] string fromDate, string toDate, string departAirportCode, string arrivalAirportCode)
         {
             TripBookingRequest uiRequest = new TripBookingRequest { FromDate = fromDate, ToDate = toDate, ArrivalAirportCode = arrivalAirportCode, DepartAirportCode = departAirportCode };
-            return webApiServiceProvider.BookingsForSpecificTripService(uiRequest);
+            return Ok(await webApiServiceProvider.BookingsForSpecificTripService(uiRequest));
         }
-
         [HttpGet("ListOfAirportsWithCode")]
-
-        public object GetListOfAirportsWithCode()
+        public async Task<IActionResult> GetListOfAirportsWithCode()
         {
-            return webApiServiceProvider.ListOfAirportsWithCodeService();
+            return Ok(await webApiServiceProvider.ListOfAirportsWithCodeService());
         }
     }
 }

@@ -67,7 +67,7 @@ namespace TaviscaDataAnalyzerTool
             {
                 app.UseHsts();
             }
-
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

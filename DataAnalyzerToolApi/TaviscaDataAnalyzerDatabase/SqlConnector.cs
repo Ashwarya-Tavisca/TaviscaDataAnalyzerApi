@@ -14,8 +14,7 @@ namespace TaviscaDataAnalyzerDatabase
 {
    public class SqlConnector:ISqlConnector
     {
-        private SqlConnection connector;
-     
+        private SqlConnection connector;    
         private readonly AppSetting _appSettings;
         public SqlConnector(IOptions<AppSetting>appSettings)
         {
@@ -23,7 +22,7 @@ namespace TaviscaDataAnalyzerDatabase
         }
         private SqlConnection Connection()
         {
-            string connectionString = _appSettings.ConnectionString;
+            string connectionString = _appSettings.ConnectionStringSql;
             connector = new SqlConnection(connectionString);
             return connector;
         }

@@ -31,6 +31,7 @@ namespace TaviscaDataAnalyzerTranslator.AirTranslator
                 paymentDetails.NumberOfBookings = Convert.ToInt32(dataRow["Bookings"]);
                 list.Add(paymentDetails);
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.PaymentType.CompareTo(objectAccessorTwo.PaymentType));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
@@ -45,6 +46,7 @@ namespace TaviscaDataAnalyzerTranslator.AirTranslator
                 bookingsForSpecificTrip.NumberOfBookings = Convert.ToInt32(dataRow["Bookings"]);
                 list.Add(bookingsForSpecificTrip);
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.AirlineName.CompareTo(objectAccessorTwo.AirlineName));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
@@ -54,9 +56,7 @@ namespace TaviscaDataAnalyzerTranslator.AirTranslator
             List<DatesWithBookings> list = new List<DatesWithBookings>();
             foreach (DataRow dataRow in dataTable.Rows)
             {
-
                 DatesWithBookings datesWithBookings = new DatesWithBookings();
-
                 string bookingDate = Convert.ToString(dataRow["ModifiedDate"]);
                 if (bookingDate[2] == '/' && bookingDate[5] == '/')
                     bookingDate = bookingDate.Substring(0, 10);
@@ -66,7 +66,6 @@ namespace TaviscaDataAnalyzerTranslator.AirTranslator
                     bookingDate = bookingDate.Substring(0, 9);
                 if (list.Exists(existingAlready => existingAlready.Date == bookingDate))
                 {
-
                     list[list.FindIndex(existingAlready => existingAlready.Date == bookingDate)].NumberOfBookings += Convert.ToInt32(dataRow["Bookings"]);
                 }
                 else
@@ -84,10 +83,8 @@ namespace TaviscaDataAnalyzerTranslator.AirTranslator
         {
             AirportsWithCodes list = new AirportsWithCodes();
             foreach (DataRow dataRow in dataTable.Rows)
-            {
-                
-                string airportNameAndCode = Convert.ToString(dataRow["AirportName"])+"-"+ Convert.ToString(dataRow["AirportCode"]);
-                 
+            {               
+                string airportNameAndCode = Convert.ToString(dataRow["AirportName"])+"-"+ Convert.ToString(dataRow["AirportCode"]);                 
                 list.AirportNameWithCode.Add(airportNameAndCode);
             }
             var json = JsonConvert.SerializeObject(list);
@@ -105,6 +102,7 @@ namespace TaviscaDataAnalyzerTranslator.AirTranslator
                 marketingAirline.NumberOfBookings = Convert.ToInt32(dataRow["Bookings"]);
                 list.Add(marketingAirline);
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.AirLineCode.CompareTo(objectAccessorTwo.AirLineCode));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
@@ -119,6 +117,7 @@ namespace TaviscaDataAnalyzerTranslator.AirTranslator
                 totalBookings.NumberOfBookings = Convert.ToInt32(dataRow["AllBookings"]);
                 list.Add(totalBookings);
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.BookingStatus.CompareTo(objectAccessorTwo.BookingStatus));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
