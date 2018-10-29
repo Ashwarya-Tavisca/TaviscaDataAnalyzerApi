@@ -14,9 +14,7 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
             List<HotelBookingDates> list = new List<HotelBookingDates>();
             foreach (DataRow dataRow in dataTable.Rows)
             {
-
                 HotelBookingDates hotelBookingDates = new HotelBookingDates();
-
                 string bookingDate = Convert.ToString(dataRow["ModifiedDate"]);
                 if (bookingDate[2] == '/' && bookingDate[5] == '/')
                     bookingDate = bookingDate.Substring(0, 10);
@@ -26,7 +24,6 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
                     bookingDate = bookingDate.Substring(0, 9);
                 if (list.Exists(existingAlready => existingAlready.BookingDates == bookingDate))
                 {
-
                     list[list.FindIndex(existingAlready => existingAlready.BookingDates == bookingDate)].NumberOfBookings += Convert.ToInt32(dataRow["Bookings"]);
                 }
                 else
@@ -39,19 +36,16 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
-
         public string FailureCountTranslator(DataTable dataTable)
         {
             FailuresInBooking failuresInBooking = new FailuresInBooking();
             foreach (DataRow dataRow in dataTable.Rows)
             {
                 failuresInBooking.counter = Convert.ToInt32(dataRow["Failure"]);
-
             }
             var json = JsonConvert.SerializeObject(failuresInBooking);
             return json;
         }
-
         public string GetAllLocationsTranslator(DataTable dataTable)
         {
             Cities cities = new Cities();
@@ -59,6 +53,7 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
             {
                 cities.City.Add(Convert.ToString(dataRow["City"]));
             }
+            cities.City.Sort();
             var json = JsonConvert.SerializeObject(cities);
             return json;
         }
@@ -73,6 +68,7 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
                 hotelNamesWithBookings.Bookings = Convert.ToInt32(dataRow["Bookings"]);
                 list.Add(hotelNamesWithBookings);
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.HotelName.CompareTo(objectAccessorTwo.HotelName));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
@@ -100,6 +96,7 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
                     list.Add(locationWithDates);
                 }
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.Place.CompareTo(objectAccessorTwo.Place));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
@@ -114,6 +111,7 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
                 paymentDetails.NumberOfBooking = Convert.ToInt32(dataRow["Bookings"]);
                 list.Add(paymentDetails);
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.PaymentType.CompareTo(objectAccessorTwo.PaymentType));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
@@ -136,6 +134,7 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
                     list.Add(supplierNamesWithBookings);
                 }
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.SupplierName.CompareTo(objectAccessorTwo.SupplierName));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }
@@ -150,6 +149,7 @@ namespace TaviscaDataAnalyzerTranslator.HotelsTranslator
                 totalHotelBookings.Count = Convert.ToInt32(dataRow["AllBookings"]);
                 list.Add(totalHotelBookings);
             }
+            list.Sort((objectAccessorOne, objectAccessorTwo) => objectAccessorOne.Type.CompareTo(objectAccessorTwo.Type));
             var json = JsonConvert.SerializeObject(list);
             return json;
         }

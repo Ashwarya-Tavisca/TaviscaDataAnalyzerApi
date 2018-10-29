@@ -2,6 +2,7 @@
 {
     public class AppSetting
     {
-        public string ConnectionString { get; set; }
+        public string ConnectionStringSql { get; set; }
+        public string ConnectionStringRedis { get; set; }
     }
 }

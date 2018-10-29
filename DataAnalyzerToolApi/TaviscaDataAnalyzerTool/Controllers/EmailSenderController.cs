@@ -10,7 +10,6 @@ using TaviscaDataAnalyzerServiceProvider;
 namespace TaviscaDataAnalyzerTool.Controllers
 {
     [Route("api/EmailSender")]
-    
     public class EmailSenderController : ControllerBase
     {
         private readonly IEmailService _emailService;
