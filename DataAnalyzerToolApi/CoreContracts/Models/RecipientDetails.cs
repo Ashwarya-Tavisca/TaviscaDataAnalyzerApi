@@ -13,5 +13,6 @@ namespace CoreContracts.Models
         public string[] StartDate { get; set; }
         public string[] EndDate { get; set; }
         public string[] Location { get; set; }
+        public string ProductName { get; set; }
     }
 }

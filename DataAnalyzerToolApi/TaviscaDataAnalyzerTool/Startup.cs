@@ -42,7 +42,7 @@ namespace TaviscaDataAnalyzerTool
             services.Configure<AppSetting>(Configuration.GetSection("AppSetting"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton(Configuration);
-                        
+               
             services.AddTransient<IHotelTranslator, HotelTranslator>();
             services.AddTransient<IAirTranslator,AirTranslator >();
             services.AddTransient<IEmailService, EmailService>();

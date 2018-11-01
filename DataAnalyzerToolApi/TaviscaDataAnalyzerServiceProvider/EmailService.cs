@@ -22,8 +22,8 @@ namespace TaviscaDataAnalyzerServiceProvider
                                "<h3> from " + details.StartDate[tableCount] + " upto " + details.EndDate[tableCount] + " at " + details.Location[tableCount] + "</h3>" + "<br>" +
                                " <table border=" + 1 + " cellpadding=" + 10 + " cellspacing=" + 0 + " width = " + 500 + ">" +
                                "<tr bgcolor='#D3D3D3'>" +
-                               "<td><b>"+details.FilterName+"</b></td> " +
-                               "<td><b>Statistics</b></td>" +
+                               "<td><b>"+details.FilterName[tableCount]+"</b></td> " +
+                               "<td><b>Number Of bookings</b></td>" +
                                "</tr>";
                 for (int RowCount = 0; RowCount < details.Labels[tableCount].Length; RowCount++)
                 {
@@ -46,7 +46,7 @@ namespace TaviscaDataAnalyzerServiceProvider
                 byte[] bytes = memoryStream.ToArray();
                 memoryStream.Close();
                 MailMessage mailMessage = new MailMessage("purab2018@gmail.com", details.RecipientEmialId);
-                mailMessage.Subject = "Data Analysis Report";
+                mailMessage.Subject = "Data Analysis Report of "+details.ProductName;
                 mailMessage.Body = "Your analysis report is attached with this Email !";
                 mailMessage.IsBodyHtml = true;
                 mailMessage.Attachments.Add(new Attachment(new MemoryStream(bytes), "DataAnalysisReport.pdf"));
