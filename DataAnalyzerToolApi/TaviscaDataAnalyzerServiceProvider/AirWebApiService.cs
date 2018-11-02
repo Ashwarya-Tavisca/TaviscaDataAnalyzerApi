@@ -24,13 +24,13 @@ namespace TaviscaDataAnalyzerServiceProvider
         public  async Task<List<AirPaymentType>> AirPaymentTypeService(UIRequest uIRequest)
         {
             string result = null;           
-            string data = "AirPaymentType" + uIRequest.FromDate + uIRequest.ToDate;
-            result = _cache.Get(data);
+            string redisKey = "AirPaymentType" + uIRequest.FromDate + uIRequest.ToDate;
+            result = _cache.Get(redisKey);
             if (result == null)
             {
                 DataTable dataTable =  await _sqlDatabase.AirPaymentTypeDatabase(uIRequest);
                 result = _airTranslator.AirPaymentTypeTranslator(dataTable);
-                _cache.Add(data, result);
+                _cache.Add(redisKey, result);
             }
             List<AirPaymentType> airPaymentType = JsonConvert.DeserializeObject<List<AirPaymentType>>(result);
             return airPaymentType;
@@ -39,13 +39,13 @@ namespace TaviscaDataAnalyzerServiceProvider
         public async Task<List<DatesWithBookings>> BookingsWithinDateRangeInfoService(UIRequest uIRequest)
         {
             string result = null;
-            string data = "BookingsWithinDateRange" + uIRequest.FromDate + uIRequest.ToDate;
-            result = _cache.Get(data);
+            string redisKey = "BookingsWithinDateRange" + uIRequest.FromDate + uIRequest.ToDate;
+            result = _cache.Get(redisKey);
             if (result == null)
             {
                 DataTable dataTable = await _sqlDatabase.BookingsWithinDateRangeInfoDatabase(uIRequest);
                 result = _airTranslator.BookingsWithinDateRangeInfoTranslator(dataTable);
-                _cache.Add(data, result);
+                _cache.Add(redisKey, result);
             }
             List<DatesWithBookings> dateWithBookings = JsonConvert.DeserializeObject<List<DatesWithBookings>>(result);
             return dateWithBookings;
@@ -54,13 +54,13 @@ namespace TaviscaDataAnalyzerServiceProvider
         public async Task<List<BookingsForSpecificTrip>> BookingsForSpecificTripService(TripBookingRequest uIRequest)
         {
             string result = null;
-            string data = "BookingInfoForTrip" + uIRequest.ArrivalAirportCode + uIRequest.FromDate + uIRequest.ToDate + uIRequest.ArrivalAirportCode;
-            result = _cache.Get(data);
+            string redisKey = "BookingInfoForTrip" + uIRequest.ArrivalAirportCode + uIRequest.FromDate + uIRequest.ToDate + uIRequest.ArrivalAirportCode;
+            result = _cache.Get(redisKey);
             if (result == null)
             {
                 DataTable dataTable = await _sqlDatabase.BookingsForSpecificTripDatabase(uIRequest);
                 result = _airTranslator.BookingsForSpecificTripTranslator(dataTable);
-                _cache.Add(data, result);
+                _cache.Add(redisKey, result);
             }
             List<BookingsForSpecificTrip> bookingsForSpecificTrips = JsonConvert.DeserializeObject<List<BookingsForSpecificTrip>>(result);
             return bookingsForSpecificTrips;
@@ -69,13 +69,13 @@ namespace TaviscaDataAnalyzerServiceProvider
         public async  Task<FailureCount> FailureCountInfoService(UIRequest uIRequest)
         {
             string result = null;
-            string data = "AirFailureCount" + uIRequest.FromDate + uIRequest.ToDate;
-            result = _cache.Get(data);
+            string redisKey = "AirFailureCount" + uIRequest.FromDate + uIRequest.ToDate;
+            result = _cache.Get(redisKey);
             if (result == null)
             {
                 DataTable dataTable = await _sqlDatabase.AirFailureCountDatabase(uIRequest);
                 result = _airTranslator.AirFailureCountTranslator(dataTable);
-                _cache.Add(data, result);
+                _cache.Add(redisKey, result);
             }
             FailureCount failureCount = JsonConvert.DeserializeObject<FailureCount>(result);
             return failureCount;
@@ -84,13 +84,13 @@ namespace TaviscaDataAnalyzerServiceProvider
         public async Task<List<MarketingAirlineBookings>> MarketingAirlineBookingsInfoService(UIRequest uIRequest)
         {
             string result = null;
-            string data = "MarketingAirLine" + uIRequest.FromDate + uIRequest.ToDate;
-            result = _cache.Get(data);
+            string redisKey = "MarketingAirLine" + uIRequest.FromDate + uIRequest.ToDate;
+            result = _cache.Get(redisKey);
             if (result == null)
             {
                 DataTable dataTable = await _sqlDatabase.MarketingAirlineBookingsInfoDatabase(uIRequest);
                 result = _airTranslator.MarketingAirlineBookingsInfoTranslator(dataTable);
-                _cache.Add(data, result);
+                _cache.Add(redisKey, result);
             }
             List<MarketingAirlineBookings> marketingAirlineBookings = JsonConvert.DeserializeObject<List<MarketingAirlineBookings>>(result);
             return marketingAirlineBookings;
@@ -99,13 +99,13 @@ namespace TaviscaDataAnalyzerServiceProvider
         public async Task<List<TotalBookings>> TotalBookingsInfoService()
         {
             string result = null;
-            string data = "AirTotalBookingsCount";
-            result = _cache.Get(data);
+            string redisKey = "AirTotalBookingsCount";
+            result = _cache.Get(redisKey);
             if (result == null)
             {
                 DataTable dataTable = await _sqlDatabase.TotalBookingsInfoDatabase();
                 result = _airTranslator.TotalBookingsInfoTranslator(dataTable);
-                _cache.Add(data, result);
+                _cache.Add(redisKey, result);
             }
             List<TotalBookings> totatlBookings = JsonConvert.DeserializeObject<List<TotalBookings>>(result);
             return totatlBookings;
@@ -113,13 +113,13 @@ namespace TaviscaDataAnalyzerServiceProvider
         public async Task<AirportsWithCodes> ListOfAirportsWithCodeService()
         {
             string result = null;
-            string data = "AirPortsWithCodes";
-            result = _cache.Get(data);
+            string redisKey = "AirPortsWithCodes";
+            result = _cache.Get(redisKey);
             if (result == null)
             {
                 DataTable dataTable = await _sqlDatabase.ListOfAirportsWithCodeDatabase();
                 result = _airTranslator.ListOfAirportsWithCodeTranslator(dataTable);
-                _cache.Add(data, result);
+                _cache.Add(redisKey, result);
             }
             AirportsWithCodes airportsWithCodes = JsonConvert.DeserializeObject<AirportsWithCodes>(result);
             return airportsWithCodes;
